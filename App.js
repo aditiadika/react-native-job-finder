@@ -1,33 +1,16 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import {
-  createBottomTabNavigator,
-  createAppContainer,
-  createStackNavigator
-} from "react-navigation";
+import React, { Component } from "react";
+import { Provider } from "react-redux";
+import store from "./store";
+import MainNavigator from "./navigator";
 
-import AuthScreen from "./screens/AuthScreen";
-import WelcomeScreen from "./screens/WelcomeScreen";
-import MapScreen from "./screens/MapScreen";
-import DeckScreen from "./screens/DeckScreen";
-import SettingScreen from "./screens/SettingScreen";
-import ReviewScreen from "./screens/ReviewScreen";
-
-const App = createBottomTabNavigator({
-  welcome: { screen: WelcomeScreen },
-  auth: { screen: AuthScreen },
-  main: {
-    screen: createBottomTabNavigator({
-      map: { screen: MapScreen },
-      deck: { screen: DeckScreen },
-      review: {
-        screen: createStackNavigator({
-          review: { screen: ReviewScreen },
-          setting: { screen: SettingScreen }
-        })
-      }
-    })
+class App extends Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <MainNavigator />
+      </Provider>
+    );
   }
-});
+}
 
-export default createAppContainer(App);
+export default App;
